@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; background: #f4f4f4; }
+    header, footer { background: #fff; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; }
+    nav a { margin: 0 10px; text-decoration: none; color: #333; }
+    .hero {
+      text-align: center; padding: 60px 20px; background: #eee; position: relative;
+    }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    .hero p { margin-bottom: 20px; }
+    .hero button {
+      background: black; color: white; padding: 10px 20px; border: none; cursor: pointer;
+    }
+    .section-dark {
+      background: black; color: white; padding: 60px 20px; display: flex; justify-content: space-around; align-items: center;
+    }
+    .section-dark .text { max-width: 500px; }
+    .features-section {
+      padding: 60px 20px; background: white; text-align: center;
+    }
+    .features-container {
+      display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-top: 30px;
+    }
+    .feature-box {
+      background: #f4f4f4; width: 200px; padding: 20px; text-align: center;
+    }
+    .feature-box .square {
+        width: 150px;
+        height: 150px;
+        background: black;
+        margin: 0 auto 10px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      
+      .feature-box .square img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      
+    .mid-section .square { width: 200px; height: 200px; background: black; }
+    .subscribe {
+      background: white; padding: 60px 20px; text-align: center;
+    }
+    .subscribe input {
+      padding: 10px; margin: 5px; width: 200px;
+    }
+    .subscribe button {
+      padding: 10px 20px; background: black; color: white; border: none;
+    }
+    footer {
+      flex-wrap: wrap; justify-content: space-between; text-align: center;
+    }
+    .section-dark {
+        background: black;
+        color: white;
+        padding: 60px 20px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+      }
+      
+      /* Teks */
+      .section-dark .text {
+        max-width: 500px;
+      }
+      .section-dark .text p {
+        margin: 20px 0;
+      }
+      .section-dark .text blockquote {
+        margin-top: 30px;
+        font-style: italic;
+        opacity: 0.8;
+      }
+      .section-dark .text footer {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        opacity: 0.6;
+      }
+      
+      /* Container untuk kotak putih */
+      .section-dark .image-stack {
+        position: relative;
+        width: 300px;
+        height: 200px;
+      }
+      
+      /* Kotak putih */
+      .section-dark .image-stack .box {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      
+      /* Kotak belakang */
+      .section-dark .image-stack .box.back {
+        top: 20px;
+        left: 20px;
+        opacity: 0.8;
+      }
+      
+      /* Kotak depan */
+      .section-dark .image-stack .box.front {
+        top: 0;
+        left: 0;
+      }
+      .section-dark .square {
+        width: 300px;        /* sesuaikan lebar kotak */
+        height: 200px;       /* sesuaikan tinggi kotak */
+        overflow: hidden;    /* potong gambar yang melebihi */
+        border-radius: 4px;  /* opsional, sudut membulat */
+      }
+      
+      .section-dark .square img {
+        display: block;      /* hilangkan spasi bawah default img */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;   /* cover = isi penuh, contain = fit tanpa crop */
+      }
+      .mid-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 60px 20px;
+        background: #eee;
+      }
+      
+      /* wrapper untuk tumpukan kotak */
+      .mid-section .image-stack {
+        position: relative;
+        width: 300px;   /* sesuaikan lebar */
+        height: 300px;  /* sesuaikan tinggi */
+      }
+      
+      /* styling kotak belakang & depan */
+      .mid-section .image-stack .box {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      
+      .mid-section .image-stack .box.back {
+        background: #000;
+        top: 0;
+        left: 0;
+      }
+      
+      .mid-section .image-stack .box.front {
+        background: #fff;
+        top: 20px;   /* offset ke bawah */
+        left: 20px;  /* offset ke kanan */
+      }
+      
+      /* styling teks & tombol di kanan */
+      .mid-section .mid-content {
+        max-width: 400px;
+      }
+      
+      .mid-section .mid-content h3 {
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+      }
+      
+      .mid-section .mid-content p {
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      
+      .mid-section .btn-outline {
+        padding: 10px 20px;
+        border: 1px solid #333;
+        background: transparent;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      /* pastikan .box.front tetap punya border-radius */
+
+    .mid-section .image-stack .box.front img {
+    display: block;      /* hilangkan whitespace default */
+    width: 100%;         /* lebar penuh kotak */
+    height: 100%;        /* tinggi penuh kotak */
+    object-fit: cover;   /* crop agar menutupi kotak */
+    border-radius: 4px;  /* sama seperti .box */
+  }
+  
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Keep it Bakulan</div>
+    <nav>
+      <a href="#">Offline Store</a>
+      <a href="#">Catalog Product</a>
+      <a href="#">Cart</a>
+      <a href="#">Sign In</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to our thrift shop</h1>
+    <p></p>
+    <button>Start</button>
+    <div style="margin-top: 40px; font-style: italic; max-width: 600px; margin: auto;">“enjoy your thrift culture”</div>
+  </section>
+
+  <section class="section-dark">
+    <div class="text">
+      <h2>The best preloved product is here</h2>
+      <p>
+        Keep It Bakulan is a thrift store offering curated, affordable secondhand fashion.  
+        We focus on style, sustainability, and individuality—without the extra fuss.  
+        Simple pieces. Honest prices. Real impact. Keep it thrift. Keep it you. Keep It Bakulan.
+      </p>
+    </div>
+  
+    <!-- Ganti ini -->
+    <div class="square">
+      <img src="gambar5.jpg" alt="Collage Bakulan" />
+    </div>
+  </section>
+  
+  
+
+  <section class="features-section">
+    <h2>Keep it Bakulan</h2>
+    <p>✨ Curated thrift finds | Affordable & stylish
+        ♻️ Sustainable fashion with personality
+        📦 DM to order | New drops weekly
+        📍#KeepItBakulan</p>
+    <div class="features-container">
+        <div class="feature-box">
+          <div class="square">
+            <img src="gambar1.jpg" alt="Veterano flanell green" />
+          </div>
+          <p>Veterano flanell green</p>
+        </div>          
+      
+        <div class="feature-box">
+          <div class="square">
+            <img src="gambar2.jpg" alt="Special Feature 1" />
+          </div>
+          <p>Veterano flannel grey</p>
+        </div>
+      
+        <div class="feature-box">
+          <div class="square">
+            <img src="gambar3.jpg" alt="Special Feature 2" />
+          </div>
+          <p>muah muah hoodie blue</p>
+        </div>
+      
+        <div class="feature-box">
+          <div class="square">
+            <img src="gambar4.jpg" alt="Special Feature 3" />
+          </div>
+          <p>inhb hoodie black</p>
+        </div>
+      </div>
+  </section>
+
+  <section class="mid-section">
+    <div class="image-stack">
+      <div class="box back"></div>
+      <div class="box front">
+        <img src="gambar5.jpg" alt="Deskripsi Foto" />
+      </div>
+    </div>
+  
+    <div class="mid-content">
+      <h3>thrift is amazing</h3>
+      <p>
+        Simple pieces. Honest prices. Real impact.
+        Keep it thrift. Keep it you. Keep It Bakulan.
+      </p>
+      <button class="btn-outline">sHOP NOW</button>
+    </div>
+  </section>
+  
+  
+
+  <section class="subscribe">
+    <h3>Try the product and see the value</h3>
+    <form>
+      <input type="text" placeholder="Name">
+      <input type="email" placeholder="Email">
+      <br>
+      <button type="submit">Start Free Trial</button>
+    </form>
+  </section>
+
+  <footer>
+    <div>About &nbsp; | &nbsp; Contact &nbsp; | &nbsp; Terms</div>
+    <div>&copy;keepitbakulan</div>
+  </footer>
+
+</body>
+</html>

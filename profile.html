@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kelola Pengguna - Keep It Bakulan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial Black', Impact, sans-serif;
+    }
+
+    body {
+      background: #111;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000;
+      border-bottom: 2px solid #800000;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .profile-btn {
+      padding: 10px 20px;
+      background-color: #800000;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100%;
+      background: #111;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      z-index: 1000;
+      transition: right 0.4s ease;
+    }
+
+    .overlay.open {
+      right: 0;
+    }
+
+    .menu-left {
+      flex: 1;
+      background: url('https://www.transparenttextures.com/patterns/asfalt-light.png') repeat;
+      padding: 60px 40px;
+    }
+
+    .menu-left ul {
+      list-style: none;
+    }
+
+    .menu-left li {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      cursor: pointer;
+    }
+
+    .menu-left li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .menu-right {
+      width: 35%;
+      background: #000;
+      background-size: cover;
+      padding: 60px 30px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .menu-right .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .menu-right img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .username {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .social, .contact {
+      margin-top: 40px;
+    }
+
+    .social p, .contact p {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .social a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .contact {
+      font-size: 14px;
+    }
+
+    .user-management {
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 30px;
+      background: #222;
+      border-radius: 8px;
+    }
+
+    .user-management h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #ff4500;
+    }
+
+    .user-management form {
+      margin-bottom: 20px;
+    }
+
+    .user-management input, .user-management select {
+      padding: 10px;
+      margin-right: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .user-management button {
+      padding: 10px 20px;
+      background-color: #ff4500;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .user-list {
+      list-style: none;
+    }
+
+    .user-list li {
+      padding: 10px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-info {
+      flex-grow: 1;
+    }
+
+    .user-actions button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background-color: #ffa500;
+      color: black;
+    }
+
+    .delete-btn {
+      background-color: #dc143c;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .menu-left li {
+        font-size: 1.6rem;
+      }
+      .menu-right {
+        width: 100%;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">KEEP IT BAKULAN</div>
+  <button class="profile-btn" onclick="openMenu()">Profile</button>
+</header>
+
+<div class="overlay" id="profileMenu">
+  <div class="menu-left">
+    <ul>
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">BIOGRAPHY</a></li>
+      <li><a href="#">PROFILE</a></li>
+      <li><a href="#">MERCH</a></li>
+      <li><a href="#" onclick="logout()">Log Out</a></li>
+    </ul>
+  </div>
+  <div class="menu-right">
+    <span class="close-btn" onclick="closeMenu()">✕</span>
+    <img src="https://via.placeholder.com/200x200.png?text=User+Image" alt="Profile Image" />
+    <div class="username" id="displayUsername">Hi, Guest</div>
+    <div class="social">
+      <p>SOCIAL MEDIA</p>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+    </div>
+    <div class="contact">
+      <p>CONTACT US</p>
+      <p>dodi@supermanisdead.net</p>
+      <p>+62 8170 666 613</p>
+    </div>
+  </div>
+</div>
+
+<section class="user-management">
+  <h2>Kelola Pengguna</h2>
+
+  <form id="addUserForm">
+    <input type="text" id="newUsername" placeholder="Username" required />
+    <select id="newRole" required>
+      <option value="User">User</option>
+      <option value="Admin">Admin</option>
+    </select>
+    <button type="submit">Tambah</button>
+  </form>
+
+  <ul class="user-list" id="userList"></ul>
+</section>
+
+<script>
+  function openMenu() {
+    document.getElementById("profileMenu").classList.add("open");
+  }
+
+  function closeMenu() {
+    document.getElementById("profileMenu").classList.remove("open");
+  }
+
+  function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user');
+    alert("Anda telah logout.");
+    location.reload();
+  }
+
+  const users = [
+    { username: "admin", role: "Admin" },
+    { username: "dodi", role: "User" },
+    { username: "punkrocker", role: "User" }
+  ];
+
+  function renderUsers() {
+    const userList = document.getElementById("userList");
+    userList.innerHTML = "";
+
+    users.forEach((u, index) => {
+      const li = document.createElement("li");
+
+      const infoDiv = document.createElement("div");
+      infoDiv.className = "user-info";
+      infoDiv.textContent = `${u.username} - ${u.role}`;
+
+      const actionDiv = document.createElement("div");
+      actionDiv.className = "user-actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "edit-btn";
+      editBtn.textContent = "Edit";
+      editBtn.onclick = () => editUser(index);
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-btn";
+      deleteBtn.textContent = "Hapus";
+      deleteBtn.onclick = () => {
+        if (confirm("Yakin ingin menghapus user ini?")) {
+          users.splice(index, 1);
+          renderUsers();
+        }
+      };
+
+      actionDiv.appendChild(editBtn);
+      actionDiv.appendChild(deleteBtn);
+
+      li.appendChild(infoDiv);
+      li.appendChild(actionDiv);
+
+      userList.appendChild(li);
+    });
+  }
+
+  function editUser(index) {
+    const user = users[index];
+    const newUsername = prompt("Edit Username:", user.username);
+    const newRole = prompt("Edit Role (Admin/User):", user.role);
+
+    if (newUsername && newRole && (newRole === "Admin" || newRole === "User")) {
+      users[index] = { username: newUsername.trim(), role: newRole };
+      renderUsers();
+    } else {
+      alert("Input tidak valid. Pastikan role adalah 'Admin' atau 'User'.");
+    }
+  }
+
+  document.getElementById("addUserForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const username = document.getElementById("newUsername").value.trim();
+    const role = document.getElementById("newRole").value;
+    if (username) {
+      users.push({ username, role });
+      renderUsers();
+      this.reset();
+    }
+  });
+
+  window.onload = function () {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const usernameDisplay = document.getElementById("displayUsername");
+    usernameDisplay.textContent = user && isLoggedIn === 'true' ? `Hi, ${user.username}` : "Hi, Guest";
+
+    renderUsers();
+  };
+</script>
+
+</body>
+</html>

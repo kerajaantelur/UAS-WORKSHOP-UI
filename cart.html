@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart | KEEP IT BAKULAN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Impact', 'Arial Black', sans-serif;
+    }
+    body {
+      margin: 0;
+      background-color: #0e0e0e;
+      color: #fff;
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: #000;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid #800000;
+    }
+    .logo a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+    .logo a:hover {
+      color: #ff4500;
+    }
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    nav a,
+    nav button {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    nav a:hover,
+    nav button:hover {
+      color: #ff4500;
+    }
+
+    .profile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: #111;
+      color: white;
+      z-index: 3000;
+      display: flex;
+      transition: right 0.5s ease;
+    }
+    .profile-sidebar.open {
+      right: 0;
+    }
+    .sidebar-left {
+      width: 60%;
+      background: url('https://www.transparenttextures.com/patterns/dark-denim-3.png'), #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+    }
+    .sidebar-left a {
+      font-size: 48px;
+      margin-bottom: 30px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+    .sidebar-left a:hover {
+      color: #ff4500;
+    }
+    .sidebar-right {
+      width: 40%;
+      background: url('https://via.placeholder.com/400x600') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+    }
+    .sidebar-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .sidebar-right .content {
+      position: relative;
+      z-index: 2;
+    }
+    .social,
+    .contact {
+      margin-bottom: 40px;
+    }
+    .social h4,
+    .contact h4 {
+      font-size: 14px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: #aaa;
+    }
+    .social a,
+    .contact p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: white;
+      text-decoration: none;
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 36px;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .cart {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 35px;
+    }
+    .cart-item {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 65, 65, 0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .cart-item:hover {
+      transform: scale(1.05);
+    }
+    .cart-item img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #333;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+    .cart-item-content {
+      padding: 18px 15px;
+      text-align: center;
+    }
+    .cart-item-content p {
+      margin: 4px 0;
+      font-size: 13px;
+      color: #bbb;
+      font-weight: normal;
+    }
+    .cart-item-content h3 {
+      margin: 8px 0;
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .quantity-control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .quantity-control button {
+      background: #ff4141;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .quantity-control button:hover {
+      background: #ff4500;
+    }
+    .quantity-control span {
+      font-size: 16px;
+      color: #fff;
+      font-weight: normal;
+    }
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #ff4141;
+      font-size: 13px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: color 0.3s ease;
+      font-weight: normal;
+    }
+    .remove-btn:hover {
+      color: #ff4500;
+    }
+    .cart-total {
+      grid-column: 1 / -1;
+      text-align: right;
+      margin-top: 20px;
+    }
+    .cart-total h3 {
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .checkout-btn {
+      background: #ff4141;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-family: 'Anton', sans-serif;
+      font-size: 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: 400;
+    }
+    .checkout-btn:hover {
+      background: #ff4500;
+    }
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+      .cart {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
+    }
+    @media (max-width: 768px) {
+      .profile-sidebar {
+        flex-direction: column;
+      }
+      .sidebar-left,
+      .sidebar-right {
+        width: 100%;
+        height: 50%;
+      }
+      .sidebar-left {
+        padding: 30px;
+      }
+      .sidebar-left a {
+        font-size: 32px;
+      }
+      .sidebar-right {
+        padding: 20px;
+      }
+    }
+    @media (max-width: 600px) {
+      .cart-total {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <a href="index.html">Keep It Bakulan</a>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">Cart</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="offlinestore.html">Offline Store</a>
+      <button onclick="toggleProfile()">Profile</button>
+    </nav>
+  </header>
+
+  <!-- SIDEBAR -->
+  <div id="profileSidebar" class="profile-sidebar">
+    <button class="close-btn" onclick="toggleProfile()">×</button>
+    <div class="sidebar-left">
+      <a href="profile.html">Profile</a>
+      <a href="updateproduct.html">Update Product</a>
+      <a href="payment.html">Payment</a>
+      <a href="history.html">History</a>
+      <a href="logout.html" onclick="logout()">Log Out</a>
+    </div>
+    <div class="sidebar-right">
+      <div class="content">
+        <div class="social">
+          <h4>SOCIAL MEDIA</h4>
+          <a href="#">Instagram</a><br>
+          <a href="#">Facebook</a>
+        </div>
+        <div class="contact">
+          <h4>CONTACT US</h4>
+          <p>keepitbakulan@punk.com</p>
+          <p>+62 xxx xxx xxx</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART SECTION -->
+  <main>
+    <div class="cart" id="cartItems"></div>
+    <div class="cart-total">
+      <h3 id="cartTotal">Total: Rp 0</h3>
+      <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+  </main>
+
+  <script>
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    function toggleProfile() {
+      const sidebar = document.getElementById('profileSidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItems = document.getElementById('cartItems');
+      cartItems.innerHTML = '';
+
+      cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="cart-item-content">
+            <p>${item.description}</p>
+            <h3>${item.name}</h3>
+            <p>LIMITED</p>
+            <p>Rp ${item.price.toLocaleString()}</p>
+            <div class="quantity-control">
+              <button onclick="updateQuantity(this, -1)">-</button>
+              <span class="quantity">${item.quantity}</span>
+              <button onclick="updateQuantity(this, 1)">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+          </div>
+        `;
+        cartItems.appendChild(cartItem);
+      });
+
+      updateTotal();
+    }
+
+    function updateQuantity(button, change) {
+      const quantityElement = button.parentElement.querySelector('.quantity');
+      let quantity = parseInt(quantityElement.textContent);
+      quantity = Math.max(1, quantity + change);
+      quantityElement.textContent = quantity;
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const itemIndex = Array.from(button.closest('.cart-item').parentElement.children).indexOf(button.closest('.cart-item'));
+      cart[itemIndex].quantity = quantity;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateTotal();
+    }
+
+    function removeItem(button) {
+      const cartItem = button.closest('.cart-item');
+      const itemIndex = Array.from(cartItem.parentElement.children).indexOf(cartItem);
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(itemIndex, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      cartItem.remove();
+      updateTotal();
+    }
+
+    function updateTotal() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+      });
+      document.getElementById('cartTotal').textContent = `Total: Rp ${total.toLocaleString()}`;
+    }
+
+    function checkout() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      // Simpan data keranjang untuk digunakan di payment.html
+      localStorage.setItem('paymentCart', JSON.stringify(cart));
+      window.location.href = 'payment.html';
+    }
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'index.html';
+    }
+
+    window.onload = loadCart;
+  </script>
+</body>
+</html>

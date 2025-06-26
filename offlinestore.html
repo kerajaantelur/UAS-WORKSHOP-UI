@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>offline store - Keep It Bakulan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Impact', 'Arial Black', sans-serif;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      line-height: 1;
+      overflow-x: hidden;
+    }
+    header {
+      background: #000;
+      padding: 40px 40px;
+      min-height: 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid #800000;
+    }
+    .logo a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+    .logo a:hover {
+      color: #ff4500;
+    }
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #ff4500;
+    }
+    .left-section::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 5px solid #fff;
+      z-index: 0;
+    }
+    .left-section h1 {
+      font-size: 5rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: 900;
+      z-index: 1;
+      text-shadow: 3px 3px 6px #000;
+    }
+    .map-section {
+      padding: 50px 20px;
+      background-color: #000;
+      text-align: center;
+    }
+    .map-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .map-container iframe {
+      width: 100%;
+      max-width: 1000px;
+      height: 500px;
+      border: 4px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #ff4500;
+    }
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+      }
+      .logo a {
+        font-size: 16px;
+      }
+      nav {
+        gap: 15px;
+      }
+      nav a {
+        font-size: 14px;
+      }
+      .main-content {
+        padding: 20px;
+      }
+      .left-section {
+        height: 400px;
+      }
+      .left-section h1 {
+        font-size: 3rem;
+      }
+      .map-container iframe {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="#">Keep It Bakulan</a>
+    </div>
+    <nav>
+      <a href="landingpage.html">Home</a>
+      <a href="#">Biography</a>
+      <a href="#">Discography</a>
+      <a href="#">Merch</a>
+      <a href="offlinestore.html">Offline Store</a>
+      <a href="register.html">Sign In</a>
+    </nav>
+  </header>
+        </div>
+  <!-- MAP SECTION -->
+  <section class="map-section">
+    <h2>Lokasi Offline Store</h2>
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.8670897347365!2d112.76814937431398!3d-7.255963971281569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f984cf4e6c1d%3A0xf0bf68d239d4ac3e!2sJl.%20Ploso%20Timur%20I%20No.85%2C%20RT.007%2FRW.10%2C%20Ploso%2C%20Kec.%20Tambaksari%2C%20Surabaya%2C%20Jawa%20Timur%2060133!5e0!3m2!1sid!2sid!4v1748953536706!5m2!1sid!2sid"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
+</body>
+</html>

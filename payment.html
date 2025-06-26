@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment | KEEP IT BAKULAN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Impact', 'Arial Black', sans-serif;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      background: #000;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid #800000;
+    }
+    .logo a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo a:hover {
+      color: #ff4500;
+    }
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+    nav a,
+    nav button {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    nav a:hover,
+    nav button:hover {
+      color: #ff4500;
+    }
+
+    /* PROFILE SIDEBAR */
+    .profile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: #111;
+      color: white;
+      z-index: 3000;
+      display: flex;
+      transition: right 0.5s ease;
+    }
+    .profile-sidebar.open {
+      right: 0;
+    }
+    .sidebar-left {
+      width: 60%;
+      background: url('https://www.transparenttextures.com/patterns/dark-denim-3.png'), #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+    }
+    .sidebar-left a {
+      font-size: 48px;
+      margin-bottom: 30px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+    .sidebar-left a:hover {
+      color: #ff4500;
+    }
+    .sidebar-right {
+      width: 40%;
+      background: url('https://via.placeholder.com/400x600') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+    }
+    .sidebar-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .sidebar-right .content {
+      position: relative;
+      z-index: 2;
+    }
+    .social,
+    .contact {
+      margin-bottom: 40px;
+    }
+    .social h4,
+    .contact h4 {
+      font-size: 14px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: #aaa;
+    }
+    .social a,
+    .contact p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: white;
+      text-decoration: none;
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 36px;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    /* PAYMENT SECTION */
+    .payment-section {
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .payment-section h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: 36px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+    .payment-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 35px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    .payment-item {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      padding: 18px 15px;
+      box-shadow: 0 0 10px rgba(255, 65, 65, 0.3);
+      transition: transform 0.3s ease;
+    }
+    .payment-item:hover {
+      transform: scale(1.05);
+    }
+    .payment-item p {
+      margin: 4px 0;
+      font-size: 13px;
+      color: #bbb;
+      font-weight: normal;
+    }
+    .payment-item h3 {
+      margin: 8px 0;
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .payment-total {
+      grid-column: 1 / -1;
+      text-align: right;
+      margin: 20px 0;
+    }
+    .payment-total h3 {
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .payment-form {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(255, 65, 65, 0.3);
+      width: 100%;
+      max-width: 600px;
+    }
+    .payment-form h3 {
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-group label {
+      font-size: 14px;
+      color: #aaa;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      background: #333;
+      border: 1px solid #800000;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 16px;
+      font-family: 'Impact', sans-serif;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff4141;
+    }
+    .form-row {
+      display: flex;
+      gap: 20px;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+    .confirm-btn {
+      background: #ff4141;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-family: 'Anton', sans-serif;
+      font-size: 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .confirm-btn:hover {
+      background: #ff4500;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+      .payment-items {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
+    }
+    @media (max-width: 768px) {
+      .profile-sidebar {
+        flex-direction: column;
+      }
+      .sidebar-left,
+      .sidebar-right {
+        width: 100%;
+        height: 50%;
+      }
+      .sidebar-left {
+        padding: 30px;
+      }
+      .sidebar-left a {
+        font-size: 32px;
+      }
+      .sidebar-right {
+        padding: 20px;
+      }
+      .payment-section {
+        padding: 40px 20px;
+      }
+      .form-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    @media (max-width: 600px) {
+      .payment-total {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <a href="index.html">Keep It Bakulan</a>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="cart.html">Cart</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="updateproduct.html">Update Product</a>
+      <a href="offlinestore.html">Offline Store</a>
+      <button onclick="toggleProfile()">Profile</button>
+    </nav>
+  </header>
+
+  <!-- SIDEBAR -->
+  <div id="profileSidebar" class="profile-sidebar">
+    <button class="close-btn" onclick="toggleProfile()">×</button>
+    <div class="sidebar-left">
+      <a href="profile.html">Profile</a>
+      <a href="updateproduct.html">Update Product</a>
+      <a href="payment.html">Payment</a>
+      <a href="history.html">History</a>
+      <a href="logout.html" onclick="logout()">Log Out</a>
+    </div>
+    <div class="sidebar-right">
+      <div class="content">
+        <div class="social">
+          <h4>SOCIAL MEDIA</h4>
+          <a href="#">Instagram</a><br>
+          <a href="#">Facebook</a>
+        </div>
+        <div class="contact">
+          <h4>CONTACT US</h4>
+          <p>keepitbakulan@punk.com</p>
+          <p>+62 xxx xxx xxx</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT SECTION -->
+  <section class="payment-section">
+    <h2>Payment Summary</h2>
+    <div class="payment-items" id="paymentItems"></div>
+    <div class="payment-total">
+      <h3 id="paymentTotal">Total: Rp 0</h3>
+    </div>
+    <div class="payment-form">
+      <h3>Payment Information</h3>
+      <div class="form-group">
+        <label for="payment-method">Payment Method</label>
+        <select id="payment-method" name="payment-method">
+          <option value="credit-card">Credit/Debit Card</option>
+          <option value="bank-transfer">Bank Transfer</option>
+          <option value="e-wallet">E-Wallet</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="card-number">Card Number</label>
+        <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="expiry-date">Expiry Date</label>
+          <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" />
+        </div>
+        <div class="form-group">
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" name="cvv" placeholder="123" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cardholder-name">Cardholder Name</label>
+        <input type="text" id="cardholder-name" name="cardholder-name" placeholder="John Doe" />
+      </div>
+      <button class="confirm-btn" onclick="confirmPayment()">Confirm Payment</button>
+    </div>
+  </section>
+
+  <script>
+    // Check login status
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    function toggleProfile() {
+      const sidebar = document.getElementById('profileSidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'index.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const paymentCart = JSON.parse(localStorage.getItem('paymentCart')) || [];
+      const paymentItems = document.getElementById('paymentItems');
+
+      if (paymentCart.length === 0) {
+        paymentItems.innerHTML = '<p>Your cart is empty.</p>';
+        document.querySelector('.payment-form').style.display = 'none';
+        return;
+      }
+
+      paymentCart.forEach(item => {
+        const paymentItem = document.createElement('div');
+        paymentItem.className = 'payment-item';
+        paymentItem.innerHTML = `
+          <p>${item.description}</p>
+          <h3>${item.name}</h3>
+          <p>Rp ${item.price.toLocaleString()} x ${item.quantity}</p>
+        `;
+        paymentItems.appendChild(paymentItem);
+      });
+
+      function updatePaymentTotal() {
+        let total = 0;
+        paymentCart.forEach(item => {
+          total += item.price * item.quantity;
+        });
+        document.getElementById('paymentTotal').textContent = `Total: Rp ${total.toLocaleString()}`;
+      }
+      updatePaymentTotal();
+    });
+
+    function confirmPayment() {
+      const paymentCart = JSON.parse(localStorage.getItem('paymentCart')) || [];
+      if (paymentCart.length === 0) {
+        alert('No items to process!');
+        return;
+      }
+
+      // Validasi sederhana untuk input pembayaran
+      const cardNumber = document.getElementById('card-number').value;
+      const expiryDate = document.getElementById('expiry-date').value;
+      const cvv = document.getElementById('cvv').value;
+      const cardholderName = document.getElementById('cardholder-name').value;
+
+      if (!cardNumber || !expiryDate || !cvv || !cardholderName) {
+        alert('Please fill in all payment details!');
+        return;
+      }
+
+      // Hitung total pembayaran
+      let total = 0;
+      paymentCart.forEach(item => {
+        total += item.price * item.quantity;
+      });
+
+      // Simpan ke riwayat pembelian
+      const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+      purchaseHistory.push({
+        timestamp: new Date().toISOString(),
+        items: paymentCart,
+        total: total
+      });
+      localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+
+      // Simulasi proses pembayaran berhasil
+      alert('Payment successful! Thank you for your purchase.');
+      
+      // Hapus data keranjang setelah pembayaran
+      localStorage.removeItem('paymentCart');
+      localStorage.removeItem('cart');
+      
+      // Arahkan ke halaman history
+      window.location.href = 'history.html';
+    }
+  </script>
+</body>
+</html>
